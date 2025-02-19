@@ -22,11 +22,14 @@ namespace CleanArchMvc.Application.Products.Handlers
             CancellationToken cancellationToken)
         {
             var product = new Product(request.Name, request.Description, request.Price, request.Stock,request.Image);
-            
-            if (product == null) 
+
+            if (product == null)
                 throw new ApplicationException("Error Creating Entity");
-            else 
+            else
+            {
+                product.CategoryId = request.CategoryId;
                 return await _productRepository.CreateAsync(product);
+            }
         }
     }
 }

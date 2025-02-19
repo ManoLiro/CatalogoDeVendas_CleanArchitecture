@@ -26,6 +26,8 @@ namespace CleanArchMvc.Infra.IoC
             services.AddScoped<ICategoryService, CategoryService>();
             services.AddAutoMapper(typeof(DomainToDTOMappingProfile));
 
+            services.AddMediatR(cfg => cfg.RegisterServicesFromAssemblyContaining<ProductService>());
+
             return services;
         }
     }

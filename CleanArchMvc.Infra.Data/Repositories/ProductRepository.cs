@@ -28,22 +28,24 @@ namespace CleanArchMvc.Infra.Data.Repositories
 
         public async Task<Product> GetByIdAsync(int? id)
         {
-            #pragma warning disable CS8603 // Possible null reference return.
-            return await _productContext.Products.FindAsync(id);
-            #pragma warning restore CS8603 // Possible null reference return.
-        }
-
-        public async Task<Product> GetProductCategoryAsync(int? id)
-        {
-            //eager loading
-            #pragma warning disable CS8603 // Possible null reference return.
+#pragma warning disable CS8603 // Possible null reference return.
+            //return await _productContext.Products.FindAsync(id);
             return await _productContext.Products.Include(c => c.Category)
-                .SingleOrDefaultAsync(p => p.Id == id);
-            #pragma warning disable CS8603 // Possible null reference return.
-
-            //return await _productContext.Products.Include(c => c.Category)
-            //   .SingleOrDefaultAsync(p => p.Category.Id == id);
+               .SingleOrDefaultAsync(p => p.Id == id);
+#pragma warning restore CS8603 // Possible null reference return.
         }
+
+        //public async Task<Product> GetProductCategoryAsync(int? id)
+        //{
+        //    //eager loading
+        //    #pragma warning disable CS8603 // Possible null reference return.
+        //    return await _productContext.Products.Include(c => c.Category)
+        //        .SingleOrDefaultAsync(p => p.Id == id);
+        //    #pragma warning disable CS8603 // Possible null reference return.
+
+        //    //return await _productContext.Products.Include(c => c.Category)
+        //    //   .SingleOrDefaultAsync(p => p.Category.Id == id);
+        //}
 
         public async Task<IEnumerable<Product>> GetProductsAsync()
         {
